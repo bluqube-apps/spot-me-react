@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Alert
+  Alert,
+  Navigator
 } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -19,12 +19,6 @@ var firebaseConfig = {
   };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 this.itemsRef = firebaseApp.database().ref();
-
-const onButtonPress = () => {
-  /*signIn();*/
-  /*logout();*/
-  pushData();
-};
 
 async function signIn() {
   try {
@@ -108,6 +102,12 @@ class SpotMe extends Component {
     super(props);
   }
 
+  static get defaultProps(){
+    return{
+      title: 'Spot.me'
+    };
+  }
+
   render() {
     const { region } = this.props;
     console.log(region);
@@ -115,8 +115,7 @@ class SpotMe extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.toolBar}>
-          <Text style={{flex:1,fontSize: 25, color: '#fff'}}>Spot.me</Text>
-          <Button onPress={onButtonPress} title="Test Firebase" color="#841584" accessibilityLabel="Learn more about this purple button" />
+          <Text style={{flex:1,fontSize: 25, color: '#fff'}}>{this.props.title}</Text>
         </View>
         <Map/>
       </View>
